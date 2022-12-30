@@ -227,7 +227,7 @@ const Profile = () => {
                                 />
                             </label>
 
-                            {editprofilePic && <div className='flex items-center justify-center text-center'>
+                            {editprofilePic && <div className='flex items-center justify-center text-center p-1'>
                                 <p className='flex justify-center items-center gap-2 flex-col text-blue-500'><span className="font-bold">{document.getElementById('picName').value.split('fakepath\\')[1]}</span></p>
                             </div>}
 

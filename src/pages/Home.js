@@ -11,7 +11,7 @@ const Home = () => {
 
   const [showAllCards, setShowAllCards] = useState([]);
 
-  const [isLoading, setIsLoading] = useState('');
+  const [isDeleteCard, setIsDeleteCard] = useState('');
 
   const [openEditModal, setOpenEditModal] = useState(false);
 
@@ -32,7 +32,6 @@ const Home = () => {
 
     try {
 
-      setIsLoading(true);
 
       const { data } = await axios.post(`${process.env.REACT_APP_BACKEND_API_URL}/api/v1/gallery-card/get-all-cards`, {}, {
 
@@ -45,8 +44,6 @@ const Home = () => {
       });
 
       setShowAllCards(data.cards);
-
-      setIsLoading(false);
 
     } catch (error) {
 
@@ -77,6 +74,8 @@ const Home = () => {
 
     try {
 
+      setIsDeleteCard(true);
+
       const { data } = await axios.post(`${process.env.REACT_APP_BACKEND_API_URL}/api/v1/gallery-card/delete-card/${cardId}`, {}, {
 
         headers: {
@@ -86,6 +85,8 @@ const Home = () => {
         }
 
       });
+
+      setIsDeleteCard(false);
 
       toast.success(`${data.message}`, {
         position: "top-center",
@@ -177,8 +178,8 @@ const Home = () => {
           theme: "light",
         });
 
-        
-        dispAllCards(); 
+
+        dispAllCards();
 
 
       }
@@ -250,7 +251,7 @@ const Home = () => {
               <label>
                 <div className="drop-shadow-md p-3 rounded-md focus:outline-none resize-none bg-neutral-100 hover:bg-neutral-200 hover:cursor-pointer">
                   <p className="text-center text-xl tracking-wider fileinputtextfield">
-                    {!editUploadPicture ? <><i className="fa-solid fa-upload text-2xl mr-3"></i>Upload your Picture</> : <>Successfully loaded <span className="font-bold">{document.getElementById('picName').value.split('fakepath\\')[1]}</span></>}
+                    <i className="fa-solid fa-upload text-2xl mr-3"></i>Upload your Picture
                   </p>
                 </div>
                 <input
@@ -262,6 +263,10 @@ const Home = () => {
                   accept=".jpg,.jpeg,.png"
                 />
               </label>
+
+              {editUploadPicture && <div className='flex items-center justify-center text-center p-1'>
+                <p className='flex justify-center items-center gap-2 flex-col text-blue-500'><span className="font-bold">{document.getElementById('picName').value.split('fakepath\\')[1]}</span></p>
+              </div>}
 
               <div className="grid grid-cols-2 gap-2">
                 <button className="max-w-full bg-red-500 text-white py-2 rounded-md mt-3 tracking-widest hover:cursor-pointer hover:bg-red-400 duration-200 text-xs md:text-xl flex items-center justify-center" onClick={() => setOpenEditModal(false)}>CANCEL</button>
@@ -275,36 +280,38 @@ const Home = () => {
 
       </div>}
 
-      {showAllCards.length === 0 ? <div className="flex justify-center mt-60">
-        <div className="shadow-md p-16 flex items-center justify-center rounded-lg bg-gray-100">
-          <p className="text-2xl tracking-wide">No cards to display. Please add one.</p>
-        </div>
-      </div> :
-        <div className="h-sceeen grid place-items-center grid-cols-1 md:grid-cols-3 gap-x-5 gap-y-8 mt-16">
-          {showAllCards.map((card) => (
-            <div className="p-4 w-11/12 h-15 shadow-xl bg-gray-100 rounded-lg" key={uuidv4()}>
+      { showAllCards.length === 0 ? <div className="flex justify-center mt-60">
+          <div className="shadow-md p-16 flex items-center justify-center rounded-lg bg-gray-100">
+            <p className="text-2xl tracking-wide">No cards to display. Please add one.</p>
+          </div>
+        </div> :
+          <div className="h-sceeen grid place-items-center grid-cols-1 md:grid-cols-3 gap-x-5 gap-y-8 mt-16">
+            {showAllCards.map((card) => (
+              <div className="p-4 w-11/12 h-15 shadow-xl bg-gray-100 rounded-lg" key={uuidv4()}>
 
-              <p className="text-2xl mb-4 font-semibold">{card.title}</p>
+                <p className="text-2xl mb-4 font-semibold">{card.title}</p>
 
-              <img src={card.galleryImage} className='min-w-full h-56' alt="" />
+                <img src={card.galleryImage} className='min-w-full h-56' alt="" />
 
-              <div className="border-t mt-5 mb-6 border-slate-300"></div>
+                <div className="border-t mt-5 mb-6 border-slate-300"></div>
 
-              <p>{card.description}</p>
+                <p>{card.description}</p>
 
-              <div className="mt-10 flex items-center justify-between">
-                <Tippy content={<span>Edit Card</span>} placement={'top'}>
-                  <i className="fa-regular fa-pen-to-square text-xl text-blue-700 cursor-pointer" onClick={(e) => { setGetCardId(card._id); setOpenEditModal(true); }}></i>
-                </Tippy>
-                <Tippy content={<span>Delete Card</span>} placement={'top'}>
-                  <i className="fa-solid fa-trash-can text-xl text-red-500 cursor-pointer" onClick={() => deleteCard(card._id)}></i>
-                </Tippy>
+                {isDeleteCard && <p className='mt-2 text-lg text-center text-red-500'><i className="fa-solid fa-spinner text-2xl animate-spin"></i> DELETING THE CARD...</p>}
+
+                <div className="mt-10 flex items-center justify-between">
+                  <Tippy content={<span>Edit Card</span>} placement={'top'}>
+                    <i className="fa-regular fa-pen-to-square text-xl text-blue-700 cursor-pointer" onClick={(e) => { setGetCardId(card._id); setOpenEditModal(true); }}></i>
+                  </Tippy>
+                  <Tippy content={<span>Delete Card</span>} placement={'top'}>
+                    <i className="fa-solid fa-trash-can text-xl text-red-500 cursor-pointer" onClick={() => deleteCard(card._id)}></i>
+                  </Tippy>
+                </div>
+
               </div>
-
-            </div>
-          ))}
-        </div>
-      }
+            ))}
+          </div>
+      };
     </DefaultLayout>
   )
 };
