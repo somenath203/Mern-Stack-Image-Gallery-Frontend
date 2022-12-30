@@ -227,7 +227,7 @@ const Home = () => {
 
           <div className="mb-8 min-w-full p-4 flex justify-center items-center bg-red-100 shadow-md rounded-lg">
             <div className="flex items-center justify-center gap-3">
-              <p className="tracking-wide text-xs md:text-lg font-medium">NOTE: If you don't want to update any particular information, then, write the existing information isndie the input field as it is.</p>
+              <p className="tracking-wide text-xs md:text-lg font-medium">NOTE: If you don't want to update any particular information, then, write the existing information inside the input field as it is.</p>
             </div>
           </div>
 
@@ -243,7 +243,7 @@ const Home = () => {
               <textarea
                 placeholder='enter the description of the card'
                 value={editDescription}
-                cols="30"
+                cols="20"
                 rows="10"
                 className="drop-shadow-md p-3 rounded-md focus:outline-none resize-none"
                 onChange={(e) => setEditDescription(e.target.value)}
