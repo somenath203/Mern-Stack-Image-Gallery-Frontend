@@ -243,7 +243,7 @@ const Home = () => {
               <textarea
                 placeholder='enter the description of the card'
                 value={editDescription}
-                cols="20"
+                cols="10"
                 rows="10"
                 className="drop-shadow-md p-3 rounded-md focus:outline-none resize-none"
                 onChange={(e) => setEditDescription(e.target.value)}
