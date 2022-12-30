@@ -89,7 +89,7 @@ const Login = () => {
 
     } catch (error) {
 
-      console.log(error);
+      setIsLoging(false);
 
       toast.error(`${error.response.data.message}`, {
         position: "top-center",
