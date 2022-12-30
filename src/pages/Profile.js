@@ -214,7 +214,7 @@ const Profile = () => {
                             <label>
                                 <div className="drop-shadow-md p-3 rounded-md focus:outline-none resize-none bg-neutral-100 hover:bg-neutral-200 hover:cursor-pointer">
                                     <p className="text-center text-xl tracking-wider fileinputtextfield">
-                                        {!editprofilePic ? <><i className="fa-solid fa-upload text-2xl mr-3"></i><span className="text-lg md:text-xl">Upload your Picture</span></> : <>Successfully loaded <span className="font-bold text-lg md:text-xl">{document.getElementById('picName').value.split('fakepath\\')[1]}</span></>}
+                                        <i className="fa-solid fa-upload text-2xl mr-3"></i><span className="text-lg md:text-xl">Upload your Picture</span>
                                     </p>
                                 </div>
                                 <input
@@ -226,6 +226,10 @@ const Profile = () => {
                                     onChange={(e) => setEditProfilePic(e.target.files[0])}
                                 />
                             </label>
+
+                            {editprofilePic && <div className='flex items-center justify-center text-center'>
+                                <p className='flex justify-center items-center gap-2 flex-col text-blue-500'><span className="font-bold">{document.getElementById('picName').value.split('fakepath\\')[1]}</span></p>
+                            </div>}
 
                             <div className="grid grid-cols-2 gap-2">
                                 <button className="max-w-full bg-red-500 text-white py-2 rounded-md mt-3 tracking-widest hover:cursor-pointer hover:bg-red-400 duration-200 text-xs md:text-xl flex items-center justify-center" onClick={() => setOpenEditModal(false)}>CANCEL</button>

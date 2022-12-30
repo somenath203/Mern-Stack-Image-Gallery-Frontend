@@ -12,6 +12,9 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const [isLoging, setIsLoging] = useState('');
+
+
   const navigate = useNavigate();
 
 
@@ -59,6 +62,8 @@ const Login = () => {
 
       } else {
 
+        setIsLoging(true);
+
         const { data } = await axios.post(`${process.env.REACT_APP_BACKEND_API_URL}/api/v1/users/login`, { email: email, password: password });
 
         toast.success(`${data.message}`, {
@@ -73,6 +78,9 @@ const Login = () => {
         });
 
         localStorage.setItem('token', data.data);
+
+        setIsLoging(false);
+
 
         navigate('/');
 
@@ -112,6 +120,13 @@ const Login = () => {
           <div className='mt-32 w-11/12 md:w-9/12 lg:w-1/3'>
 
             <p className='text-3xl text-center mb-14 text-blue-800 tracking-widest'>LOGIN</p>
+
+            {isLoging && <div className="mb-8 min-w-full p-4 flex justify-center items-center bg-green-100 shadow-md rounded-lg">
+              <div className="flex items-center justify-center gap-3">
+                <i className="fa-solid fa-spinner text-2xl animate-spin"></i>
+                <p className="tracking-wide text-md font-medium">Logging you in. Please Wait...</p>
+              </div>
+            </div>}
 
             <form className="flex flex-col gap-8" onSubmit={onSubmitForm}>
               <input

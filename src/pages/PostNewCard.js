@@ -80,7 +80,7 @@ const PostNewCard = () => {
                 setTitle('');
                 setDescription('');
                 fileInputReset.current.value = null;
-                setUploadedPicture(''); 
+                setUploadedPicture('');
 
             }
 
@@ -91,8 +91,8 @@ const PostNewCard = () => {
             setTitle('');
             setDescription('');
             fileInputReset.current.value = null;
-            setUploadedPicture(''); 
-            
+            setUploadedPicture('');
+
 
             toast.error(`${error.response.data.message}`, {
                 position: "top-center",
@@ -143,7 +143,7 @@ const PostNewCard = () => {
                         <label>
                             <div className="drop-shadow-md p-3 rounded-md focus:outline-none resize-none bg-neutral-100 hover:bg-neutral-200 hover:cursor-pointer">
                                 <p className="text-center text-xl tracking-wider fileinputtextfield">
-                                    { !uploadPicture ? <><i className="fa-solid fa-upload text-2xl mr-3"></i>Upload your Picture</> : <>Successfully loaded <span className="font-bold">{document.getElementById('picName').value.split('fakepath\\')[1]}</span></> }
+                                    <i className="fa-solid fa-upload text-2xl mr-3"></i>Upload your Picture
                                 </p>
                             </div>
                             <input
@@ -155,6 +155,11 @@ const PostNewCard = () => {
                                 accept=".jpg,.jpeg,.png"
                             />
                         </label>
+
+                        {uploadPicture && <div className='flex items-center justify-center text-center'>
+                            <p className='flex justify-center items-center gap-2 flex-col text-blue-500'><span className="font-bold">{document.getElementById('picName').value.split('fakepath\\')[1]}</span></p>
+                        </div>}
+
                         <button className="w-full mb-8 bg-blue-800 text-white py-2 tracking-widest rounded-md mt-3 hover:cursor-pointer hover:bg-blue-600 duration-200">CREATE CARD</button>
                     </form>
 
