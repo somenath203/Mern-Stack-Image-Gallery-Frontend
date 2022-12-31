@@ -1,13 +1,10 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import DefaultLayout from './../components/DefaultLayout';
 import { toast } from 'react-toastify';
-import RotateLoader from "react-spinners/RotateLoader";
 
 const Login = () => {
-
-  const [openingScreenLoading, setOpeningScreenLoading] = useState(false);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,16 +14,6 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-
-  useEffect(() => {
-
-    setOpeningScreenLoading(true);
-
-    setTimeout(() => {
-      setOpeningScreenLoading(false);
-    }, 2300);
-
-  }, []);
 
   const onSubmitForm = async (e) => {
 
@@ -111,9 +98,7 @@ const Login = () => {
 
   return (
     <>
-      {openingScreenLoading ? <div className='min-h-screen flex items-center justify-center bg-slate-100'>
-        <RotateLoader loading={openingScreenLoading} size={20} />
-      </div> : <DefaultLayout>
+      <DefaultLayout>
 
         <div className="min-h-screen flex items-center flex-col bg-slate-100">
 
@@ -151,7 +136,7 @@ const Login = () => {
 
         </div>
 
-      </DefaultLayout>}
+      </DefaultLayout>
     </>
   )
 }
