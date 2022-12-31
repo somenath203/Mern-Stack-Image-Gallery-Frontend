@@ -22,6 +22,8 @@ const Profile = () => {
     const [editprofilePic, setEditProfilePic] = useState('');
     const [changeUpdatedTextBtn, setChangeUpdatedTextBtn] = useState('');
 
+    const [isDeletingAccount, setIsDeletingAccount] = useState(false);
+
 
     const profilePicResetRef = useRef();
 
@@ -29,6 +31,8 @@ const Profile = () => {
     const deleteuserAccount = async (userId) => {
 
         try {
+
+            setIsDeletingAccount(true);
 
             const { data } = await axios.post(`${process.env.REACT_APP_BACKEND_API_URL}/api/v1/users/delete-user/${userId}`, {}, {
 
@@ -39,6 +43,8 @@ const Profile = () => {
                 }
 
             });
+
+            setIsDeletingAccount(false);
 
             toast.success(`${data.message}`, {
                 position: "top-center",
@@ -59,6 +65,8 @@ const Profile = () => {
         } catch (error) {
 
             console.log(error);
+
+            setIsDeletingAccount(false);
 
             toast.error('failed to delete account', {
                 position: "top-center",
@@ -274,9 +282,13 @@ const Profile = () => {
                 </div>
 
                 <div className="mt-12 p-10 py-12 w-10/12 sm:w-11/12 md:w-7/12 md:h-10/12 shadow-xl rounded-md text-center bg-red-50">
+
                     <p className="text-center text-lg md:text-2xl font-bold tracking-wide">DANGER ZONE</p>
                     <p className="mt-8 font-medium text-slate-600 text-lg md:text-xl">Are you sure you want to delete your account?</p>
                     <p className="mt-3 font-medium text-slate-600 text-lg md:text-xl"><span className="font-bold">NOTE: </span>Deletion of account is irreversable action.</p>
+
+                    {isDeletingAccount && <p className='mt-3 text-lg text-center text-red-500 font-bold'><i className="fa-solid fa-spinner text-2xl animate-spin"></i> DELETING YOUR ACCOUNT...</p>}
+
                     <button className="min-w-full mt-8 py-4 bg-red-200 hover:bg-red-300 duration-300 text-black tracking-wide rounded-xl flex items-center justify-center gap-0.5 md:gap-2" onClick={() => deleteuserAccount(user?.userId)}>
                         <i className="fa-solid ml-4 fa-burst text-lg md:text-2xl text-red-700"></i>
                         <p className="font-medium text-sm md:text-xl tracking-wider">Delete My Account</p>
