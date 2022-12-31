@@ -237,19 +237,19 @@ const Home = () => {
                 type="text"
                 value={editTitle}
                 placeholder='enter the title of the card'
-                className="drop-shadow-md w-full p-3 rounded-md focus:outline-none"
+                className="drop-shadow-md w-full p-3 py-2 rounded-md focus:outline-none"
                 onChange={(e) => setEditTitle(e.target.value)}
               />
               <textarea
                 placeholder='enter the description of the card'
                 value={editDescription}
-                cols="30"
+                cols="10"
                 rows="10"
-                className="drop-shadow-md p-3 rounded-md focus:outline-none resize-none"
+                className="drop-shadow-md p-3 rounded-md focus:outline-none resize-none h-24"
                 onChange={(e) => setEditDescription(e.target.value)}
               ></textarea>
               <label>
-                <div className="drop-shadow-md p-3 rounded-md focus:outline-none resize-none bg-neutral-100 hover:bg-neutral-200 hover:cursor-pointer">
+                <div className="drop-shadow-md p-3 py-2 rounded-md focus:outline-none resize-none bg-neutral-100 hover:bg-neutral-200 hover:cursor-pointer">
                   <p className="text-center text-xl tracking-wider fileinputtextfield">
                     <i className="fa-solid fa-upload text-2xl mr-3"></i>Upload your Picture
                   </p>
@@ -264,7 +264,7 @@ const Home = () => {
                 />
               </label>
 
-              {editUploadPicture && <div className='flex items-center justify-center text-center p-1'>
+              {editUploadPicture && <div className='flex items-center justify-center text-center'>
                 <p className='flex justify-center items-center gap-2 flex-col text-blue-500'><span className="font-bold">{document.getElementById('picName').value.split('fakepath\\')[1]}</span></p>
               </div>}
 
