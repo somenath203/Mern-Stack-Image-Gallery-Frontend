@@ -191,7 +191,7 @@ const Profile = () => {
 
                     <div className="mb-8 min-w-full p-4 flex justify-center items-center bg-red-100 shadow-md rounded-lg">
                         <div className="flex items-center justify-center gap-3">
-                            <p className="tracking-wide text-xs md:text-lg font-medium">NOTE: If you don't want to update any particular information, then, write the existing information isndie the input field as it is.</p>
+                            <p className="tracking-wide text-xs md:text-lg font-medium">NOTE: If you don't want to update any particular information, then, write the existing information inside the input field as it is.</p>
                         </div>
                     </div>
 
